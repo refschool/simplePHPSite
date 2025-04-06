@@ -1,5 +1,5 @@
 <?php
-ini_set('session.cookie_samesite', 'None');
+ini_set('session.cookie_samesite', 'None'); // permet d'être plus laxiste
 ini_set('session.cookie_secure', 'true');
 session_start();
 ?>
