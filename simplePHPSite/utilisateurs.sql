@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Hôte : localhost:8889
--- Généré le : jeu. 27 mars 2025 à 13:06
--- Version du serveur :  5.7.32
--- Version de PHP : 8.0.3
+-- Hôte : localhost:3306
+-- Généré le : dim. 06 avr. 2025 à 13:57
+-- Version du serveur : 8.0.30
+-- Version de PHP : 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `MDSB1`
+-- Base de données : `simplephpsite`
 --
 
 -- --------------------------------------------------------
@@ -28,17 +28,21 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `utilisateurs` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `email` varchar(100) NOT NULL,
-  `password` varchar(150) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `prenom` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `nom` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `password` varchar(150) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `utilisateurs`
 --
 
-INSERT INTO `utilisateurs` (`id`, `email`, `password`) VALUES
-(4, 'yvon.huynh@gmail.com', '$2y$10$5aUZVZFmZ4N5dQ1xvN0ixuLSpb8A2dTdHc/sUJHjrBuC7OdrJP/mC');
+INSERT INTO `utilisateurs` (`id`, `email`, `prenom`, `nom`, `password`) VALUES
+(4, 'yvon.huynh@gmail.com', 'yvon', 'huynh', '$2y$10$6FbtH.8nmALQfnRTXZ66nOmZfiqPtkgD.85YfvngNQSpzG8eXmtVK'),
+(5, 'referencementschool@gmail.com', 'ref', 'school', '$2y$10$/EgxDgslUesq3umXBzzwRe.wbwbuwlbCD1DVnKWvLXp/jWGgq1KWG'),
+(6, 'admin@gmail.com', 'admin', 'admin', '$2y$10$lO0UOippPvHSYCFjMVqbmurtG9ZKs3vXMaFlEkGxtlsS0KfpzvKGu');
 
 --
 -- Index pour les tables déchargées
@@ -58,7 +62,7 @@ ALTER TABLE `utilisateurs`
 -- AUTO_INCREMENT pour la table `utilisateurs`
 --
 ALTER TABLE `utilisateurs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

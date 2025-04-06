@@ -1,23 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Message board</title>
-</head>
+<?php
+session_start();
+include_once('inc/head.php');
+include_once('inc/pdo.php');
+?>
 
 <body>
+    <?php include_once('inc/navbar.php'); ?>
     <?php
-    $messages = [
+    $_SESSION['messages'] = [
         0 => [
             "title" => "Yvon",
             "message" => "<h1>Bonjour tout le monde</h1>"
         ],
-        // 1 => [
-        //     "title" => "Yvon",
-        //     "message" => "<script>alert('hello')</script>"
-        // ],
+        1 => [
+            "title" => "The cookies",
+            "message" => "<a href='javascript:(function(){var a=document.cookie;alert(a)})()'>Click here</a>"
+        ],
         2 => [
             "title" => "Salutation",
             "message" => "<a href='javascript:(function(){alert(\"salut\")})()'>Click here</a>"
@@ -29,7 +27,7 @@
 
     <table>
         <?php
-        foreach ($messages as $m) {
+        foreach ($_SESSION['messages']  as $m) {
             echo "<tr>";
             echo "<td>" . $m['title'] . "<br>"
                 . $m['message'] .
@@ -39,6 +37,9 @@
 
         ?>
     </table>
+
+
+    <!-- construire le formulaire de soumission -->
 </body>
 
 </html>

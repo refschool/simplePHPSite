@@ -17,7 +17,8 @@ if (!isset($_SESSION['email'])) {
         // update du mot de passe
         // TODO : vérifier que l'ancien mot de passe concorde avec la base
         $password = password_hash($_POST['passwordNew'], PASSWORD_DEFAULT);
-        $sql = "UPDATE utilisateurs SET password='" . $password . "' WHERE email = '" . $_SESSION['email'] . "'";
+
+        $sql = "UPDATE utilisateurs SET password='" . $password . "' WHERE email = '" . $_POST['email'] . "'";
 
         $stmt = $pdo->prepare($sql);
         $stmt->execute(); // pour l'instant on ne checke pas la réussite
@@ -33,14 +34,15 @@ if (!isset($_SESSION['email'])) {
         <form action="updatePassword.php" method="POST" class="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded-lg space-y-4">
             <div>
                 <label for="passwordOld" class="block text-gray-700 font-medium mb-1">Ancien mot de passe</label>
-                <input type="password" name="passwordOld" id="passwordOld" required
+                <input type="text" name="passwordOld" id="passwordOld" required
                     class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
 
             <div>
                 <label for="passwordNew" class="block text-gray-700 font-medium mb-1">Nouveau mot de passe</label>
-                <input type="password" name="passwordNew" id="passwordNew" required
+                <input type="text" name="passwordNew" id="passwordNew" required
                     class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="hidden" name="email" value="<?= $_SESSION['email'] ?>">
             </div>
 
             <div>

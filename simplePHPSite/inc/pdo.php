@@ -15,4 +15,9 @@
 $dsn = 'mysql:host=localhost;dbname=simplephpsite';
 $user = "root";
 $pass = "";
-$pdo = new \PDO($dsn, $user, $pass);
+$options = [
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, // Gérer les erreurs
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, // Mode de récupération
+    PDO::MYSQL_ATTR_MULTI_STATEMENTS => true // Activer les multi-requêtes
+];
+$pdo = new \PDO($dsn, $user, $pass, $options);

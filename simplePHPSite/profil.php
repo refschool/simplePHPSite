@@ -31,9 +31,17 @@ include_once('inc/pdo.php');
     if (!isset($_SESSION['email'])) {
         header('Location: login.php');
     } else {
+        // selection des données de l'utilisateur
+        $sql = "select * from utilisateurs where email='" . $_SESSION['email'] . "'";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
         echo '<div class="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded-lg text-gray-800">';
         echo '<h2 class="text-xl font-semibold mb-4">Voici vos informations :</h2>';
-        echo '<p class="mb-2"><span class="font-medium">Email :</span> ' . $_SESSION['email'] . '</p>';
+        echo '<p class="mb-2"><span class="font-medium">Email :</span> ' . $result['email'] . '</p>';
+        echo '<p class="mb-2"><span class="font-medium">Nom : </span> ' . $result['nom'] . '</p>';
+        echo '<p class="mb-2"><span class="font-medium">Prenom : </span> ' . $result['prenom'] . '</p>';
         echo '<a href="updatePassword.php" class="inline-block mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">Changer le mot de passe</a>';
         echo '</div>';
     }

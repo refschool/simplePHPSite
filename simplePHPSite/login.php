@@ -17,10 +17,26 @@ include_once('inc/pdo.php');
 if (isset($_POST['email'])) {
     $email = $_POST['email'];
     $sql = "SELECT email,password FROM utilisateurs WHERE email='$email'";
+    // $sql = "SELECT email,password FROM utilisateurs WHERE email='" . $email . "' and password='" . $_POST['password'] . "'";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
-    // $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+
+    // if ($result) {
+
+    //     // header('Location: /index.php');
+    //     echo "Vous êtes authentifié avec succès !";
+    //     // on sette $_SESSION
+
+    //     $_SESSION['email'] = $email;
+
+    //     // redirection vers la page index.php
+    //     header('Location: index.php');
+    // }
+
+
 
     //controle mot de passe
     if ($result) {
@@ -32,10 +48,8 @@ if (isset($_POST['email'])) {
         if ($resultat_comparaison === false) {
             echo "Mauvais mot de passe";
         } else {
-            // header('Location: /index.php');
             echo "Vous êtes authentifié avec succès !";
             // on sette $_SESSION
-
             $_SESSION['email'] = $email;
 
             // redirection vers la page index.php
