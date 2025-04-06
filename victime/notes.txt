@@ -1,0 +1,11 @@
+les fichiers de ce répertoire nous permettent d'étudier le clickjacking via une iframe pour payer.
+Mais aussi pour ajouter des articles en superposant des iframes
+mais sur Chrome, depuis 2024 il n'est plus possible de mettre en place des cookies cross domain (appelé cookie tiers)
+Sur Edge cela marche toujours.
+Il y a aussi l'update email.
+
+Update email hack :
+fichiers : 
+victime : update_email.php
+attaquant : attaque.php
+

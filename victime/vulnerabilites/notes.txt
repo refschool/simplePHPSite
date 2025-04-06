@@ -1,0 +1,2 @@
+les fichiers de ce répertoire permettent d'étudier l'upload de script
+et l'exécution de script embarqués dans un EXIF d'image.
