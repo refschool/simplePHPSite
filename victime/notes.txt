@@ -71,26 +71,13 @@ REMEDE : X-Frame-Options
 
 8/attaque par unserialized object
 victime : unserialize.php   montre comment on serialise un objet anodin
+montrer comment marche la serialisation, et la méthode magique __destruct()
 
-demander de faire la même chose avec un objet Evil
 
-// Le code malveillant
-class Evil {
-    public $cmd;
+créer la classe Logger
+sérialiser l'objet en question
+montrer le webshell
 
-    public function __construct($cmd) {
-        $this->cmd = $cmd;
-    }
-
-    public function __destruct() {
-        // Exemple d'exécution de commande système malveillante
-        exec($this->cmd);
-    }
-}
-
-// Sérialisation de l'objet malveillant
-$evil_object = new Evil('rm -rf /'); // Commande destructrice
-$serialized_evil_object = serialize($evil_object);
 
 $user = unserialize($_SESSION['user'], ["allowed_classes" => ["User"]]);
 $user = json_decode($_SESSION['user'], true);
