@@ -12,7 +12,7 @@
 
 
 // connexion à la base de données MySQL
-$dsn = 'mysql:host=localhost;dbname=MDSB1';
+$dsn = 'mysql:host=localhost;dbname=simplephpsite';
 $user = "root";
-$pass = "root";
+$pass = "";
 $pdo = new \PDO($dsn, $user, $pass);

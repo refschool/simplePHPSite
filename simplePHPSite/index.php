@@ -23,7 +23,7 @@ include_once('inc/pdo.php');
     if (isset($_SESSION['email'])) {
         echo "Bonjour " . $_SESSION['email'];
     } else {
-        echo "Veuillez vous connecter";
+        echo "Veuillez vous <a href='login.php'>connecter</a>";
     }
     ?>
 </body>

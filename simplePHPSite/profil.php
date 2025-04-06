@@ -24,14 +24,20 @@ include_once('inc/head.php');
 include_once('inc/pdo.php');
 ?>
 
-<?php
-// on redirige vers login si on n'est pas authentifié
-if (!isset($_SESSION['email'])) {
-    header('Location: login.php');
-} else {
-    echo "voici vos informations:<br>";
-    echo "Email : " . $_SESSION['email'];
-    echo '<br>';
-    echo "<a href='updatePassword.php'>Changer le mot de passe</a>";
-}
-?>
+<body>
+    <?php include_once('inc/navbar.php'); ?>
+    <?php
+    // on redirige vers login si on n'est pas authentifié
+    if (!isset($_SESSION['email'])) {
+        header('Location: login.php');
+    } else {
+        echo '<div class="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded-lg text-gray-800">';
+        echo '<h2 class="text-xl font-semibold mb-4">Voici vos informations :</h2>';
+        echo '<p class="mb-2"><span class="font-medium">Email :</span> ' . $_SESSION['email'] . '</p>';
+        echo '<a href="updatePassword.php" class="inline-block mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">Changer le mot de passe</a>';
+        echo '</div>';
+    }
+    ?>
+</body>
+
+</html>
