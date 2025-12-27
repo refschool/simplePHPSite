@@ -1,11 +1,7 @@
 <?php
 // TODO :  message plus robuste en cas de non existence 
 // de l'utilisateur
-ini_set('session.cookie_httponly', 1);
-ini_set('session.cookie_secure', 0); // Si tu es en HTTPS
-ini_set('session.cookie_samesite', 'Strict');
-
-session_start();
+include_once('inc/session_header.php');
 if (isset($_SESSION['email']) && !empty($_SESSION['email'])) {
     // redirection vers la page index.php si on est déjà authentifié
     header('Location: index.php');
